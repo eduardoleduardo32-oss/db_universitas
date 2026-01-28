@@ -1,0 +1,157 @@
+
+Setting environment for using XAMPP for Windows.
+Acer@LAPTOP-K2AHAU1A c:\xampp
+# mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 14
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| apotek_sehat       |
+| belajar_database   |
+| cobadml            |
+| cobaujian          |
+| dahab_db           |
+| db_latihan         |
+| information_schema |
+| loginujian         |
+| mysql              |
+| penjualan          |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+13 rows in set (0.001 sec)
+
+MariaDB [(none)]> create database db_universitas;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> use db_universitas;
+Database changed
+MariaDB [db_universitas]> create table mahasiswa(
+    -> id int auto_increment primary key,
+    -> nama varchar(50) not null,
+    -> alamat text,
+    -> tahun_lahir int,
+    -> tahn_masuk int,
+    -> jurusan varchar(50));
+Query OK, 0 rows affected (0.061 sec)
+
+MariaDB [db_universitas]> insert into mahasiswa
+    -> (nama,alamat,tahun_lahir,tahn_masuk,jurusan)
+    -> values
+    -> ('caca','bogor','2000','2015','sastra inggris'),
+    -> ('cici','jakarta','2002','2017','sastra inggris'),
+    -> ('cece','bogor','2005','2015','informatika'),
+    -> ('cucu','depok','2000','2018','kedokteran gigi'),
+    -> ('coco','tangerang','2001','2015','sistem informasi');
+Query OK, 5 rows affected (0.053 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [db_universitas]> select * from mahasiswa;
++----+------+-----------+-------------+------------+------------------+
+| id | nama | alamat    | tahun_lahir | tahn_masuk | jurusan          |
++----+------+-----------+-------------+------------+------------------+
+|  1 | caca | bogor     |        2000 |       2015 | sastra inggris   |
+|  2 | cici | jakarta   |        2002 |       2017 | sastra inggris   |
+|  3 | cece | bogor     |        2005 |       2015 | informatika      |
+|  4 | cucu | depok     |        2000 |       2018 | kedokteran gigi  |
+|  5 | coco | tangerang |        2001 |       2015 | sistem informasi |
++----+------+-----------+-------------+------------+------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [db_universitas]> update mahasiswa set alamat = 'solo' where id=4;
+Query OK, 1 row affected (0.051 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db_universitas]> select * from mahasiswa;
++----+------+-----------+-------------+------------+------------------+
+| id | nama | alamat    | tahun_lahir | tahn_masuk | jurusan          |
++----+------+-----------+-------------+------------+------------------+
+|  1 | caca | bogor     |        2000 |       2015 | sastra inggris   |
+|  2 | cici | jakarta   |        2002 |       2017 | sastra inggris   |
+|  3 | cece | bogor     |        2005 |       2015 | informatika      |
+|  4 | cucu | solo      |        2000 |       2018 | kedokteran gigi  |
+|  5 | coco | tangerang |        2001 |       2015 | sistem informasi |
++----+------+-----------+-------------+------------+------------------+
+5 rows in set (0.000 sec)
+
+MariaDB [db_universitas]> delete from mahasiswa where id=2;
+Query OK, 1 row affected (0.054 sec)
+
+MariaDB [db_universitas]> select * from mahasiswa;
++----+------+-----------+-------------+------------+------------------+
+| id | nama | alamat    | tahun_lahir | tahn_masuk | jurusan          |
++----+------+-----------+-------------+------------+------------------+
+|  1 | caca | bogor     |        2000 |       2015 | sastra inggris   |
+|  3 | cece | bogor     |        2005 |       2015 | informatika      |
+|  4 | cucu | solo      |        2000 |       2018 | kedokteran gigi  |
+|  5 | coco | tangerang |        2001 |       2015 | sistem informasi |
++----+------+-----------+-------------+------------+------------------+
+4 rows in set (0.001 sec)
+
+MariaDB [db_universitas]> select nama,tahun_lahir,tahn_masuk from mahasiswa;
++------+-------------+------------+
+| nama | tahun_lahir | tahn_masuk |
++------+-------------+------------+
+| caca |        2000 |       2015 |
+| cece |        2005 |       2015 |
+| cucu |        2000 |       2018 |
+| coco |        2001 |       2015 |
++------+-------------+------------+
+4 rows in set (0.001 sec)
+
+MariaDB [db_universitas]> select distinct jurusan from mahasiswa;
++------------------+
+| jurusan          |
++------------------+
+| sastra inggris   |
+| informatika      |
+| kedokteran gigi  |
+| sistem informasi |
++------------------+
+4 rows in set (0.001 sec)
+
+MariaDB [db_universitas]> select *, tahn_masuk - tahun_lahir as usia_saat_masuk from mahasiswa;
++----+------+-----------+-------------+------------+------------------+-----------------+
+| id | nama | alamat    | tahun_lahir | tahn_masuk | jurusan          | usia_saat_masuk |
++----+------+-----------+-------------+------------+------------------+-----------------+
+|  1 | caca | bogor     |        2000 |       2015 | sastra inggris   |              15 |
+|  3 | cece | bogor     |        2005 |       2015 | informatika      |              10 |
+|  4 | cucu | solo      |        2000 |       2018 | kedokteran gigi  |              18 |
+|  5 | coco | tangerang |        2001 |       2015 | sistem informasi |              14 |
++----+------+-----------+-------------+------------+------------------+-----------------+
+4 rows in set (0.011 sec)
+
+MariaDB [db_universitas]> select *, tahn_masuk - tahun_lahir as usia_saat_masuk from mahasiswa order by usia_saat_masuk desc;
++----+------+-----------+-------------+------------+------------------+-----------------+
+| id | nama | alamat    | tahun_lahir | tahn_masuk | jurusan          | usia_saat_masuk |
++----+------+-----------+-------------+------------+------------------+-----------------+
+|  4 | cucu | solo      |        2000 |       2018 | kedokteran gigi  |              18 |
+|  1 | caca | bogor     |        2000 |       2015 | sastra inggris   |              15 |
+|  5 | coco | tangerang |        2001 |       2015 | sistem informasi |              14 |
+|  3 | cece | bogor     |        2005 |       2015 | informatika      |              10 |
++----+------+-----------+-------------+------------+------------------+-----------------+
+4 rows in set (0.001 sec)
+
+MariaDB [db_universitas]> select nama, jurusan, tahn_masuk - tahun_lahir as usia_saat_masuk from mahasiswa where (tahn_masuk - tahun_lahir)<=15;
++------+------------------+-----------------+
+| nama | jurusan          | usia_saat_masuk |
++------+------------------+-----------------+
+| caca | sastra inggris   |              15 |
+| cece | informatika      |              10 |
+| coco | sistem informasi |              14 |
++------+------------------+-----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [db_universitas]> truncate table mahasiswa;
+Query OK, 0 rows affected (0.047 sec)
+
+MariaDB [db_universitas]>
